@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Verificar si dos números son pares y contar los números entre ellos</h2>
+
+<form id="numForm">
+  <label for="num1">Ingrese el primer número:</label><br>
+  <input type="number" id="num1" name="num1" step="1" required><br>
+  <label for="num2">Ingrese el segundo número:</label><br>
+  <input type="number" id="num2" name="num2" step="1" required><br>
+  <input type="submit" value="Verificar">
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById('numForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var num1 = document.getElementById('num1').value;
+  var num2 = document.getElementById('num2').value;
+  var result = document.getElementById('result');
+  var count = Math.abs(num1 - num2) - 1;
+  var isNum1Even = num1 % 2 === 0;
+  var isNum2Even = num2 % 2 === 0;
+  result.textContent = 'El primer número ' + (isNum1Even ? 'es par.' : 'no es par.') + 
+                       ' El segundo número ' + (isNum2Even ? 'es par.' : 'no es par.') + 
+                       ' Hay ' + count + ' números entre ellos.';
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Convertir temperatura</h2>
+
+<form id="tempForm">
+  <label for="temp">Ingrese una temperatura en Celsius:</label><br>
+  <input type="number" id="temp" name="temp" required><br>
+  <input type="submit" value="Convertir">
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById('tempForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var tempC = document.getElementById('temp').value;
+  var result = document.getElementById('result');
+  var tempF = tempC * 9/5 + 32;
+  var tempK = parseFloat(tempC) + 273.15;
+  var tempR = tempC * 21/40 + 7.5;
+  result.textContent = 'Farenheit: ' + tempF + '°F, Kelvin: ' + tempK + 'K, Roemer: ' + tempR + '°R';
+});
+</script>
+
+</body>
+</html>

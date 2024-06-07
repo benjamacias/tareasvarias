@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Calcular el salario de un trabajador</h2>
+
+<form id="salaryForm">
+  <label for="hours">Ingrese la cantidad de horas trabajadas:</label><br>
+  <input type="number" id="hours" name="hours" step="1" required><br>
+  <label for="rate">Ingrese el valor por hora:</label><br>
+  <input type="number" id="rate" name="rate" step="0.01" required><br>
+  <input type="submit" value="Calcular">
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById('salaryForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var hours = document.getElementById('hours').value;
+  var rate = document.getElementById('rate').value;
+  var result = document.getElementById('result');
+  var overtime = hours > 170 ? hours - 170 : 0;
+  var regularHours = hours > 170 ? 170 : hours;
+  var grossPay = regularHours * rate + overtime * rate * 2;
+  var netPay = grossPay > 20000 ? grossPay * 0.95 : grossPay;
+  result.textContent = 'El salario neto es $' + netPay.toFixed(2);
+});
+</script>
+
+</body>
+</html>

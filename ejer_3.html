@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Verificar si un año es bisiesto</h2>
+
+<form id="leapYearForm">
+  <label for="year">Ingrese un año:</label><br>
+  <input type="number" id="year" name="year" min="1900" max="2099" required><br>
+  <input type="submit" value="Verificar">
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById('leapYearForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var year = document.getElementById('year').value;
+  var result = document.getElementById('result');
+  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+    result.textContent = year + ' es un año bisiesto.';
+  } else {
+    result.textContent = year + ' no es un año bisiesto.';
+  }
+});
+</script>
+
+</body>
+</html>
