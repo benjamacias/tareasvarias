@@ -35,7 +35,19 @@ document.getElementById('taxiForm').addEventListener('submit', function(event) {
   var revenue = document.getElementById('revenue').value;
   var trips = document.getElementById('trips').value;
   var color = document.getElementById('color').value;
-  taxis.push({license: license, revenue: revenue, trips: trips, color: color});
+  // Comprobar si el taxi ya está registrado
+  var isRegistered = taxis.some(function(taxi) {
+    return taxi.license === license;
+  });
+
+  if (!isRegistered) {
+    // Si el taxi no está registrado, agregarlo a la lista
+    taxis.push({license: license, revenue: revenue, trips: trips, color: color});
+  } else {
+    // Si el taxi ya está registrado, mostrar un mensaje de error
+    alert('Este taxi ya está registrado.');
+  }
+
   event.target.reset();
 });
 
