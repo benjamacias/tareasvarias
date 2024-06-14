@@ -5,8 +5,15 @@
 <h2>Convertir temperatura</h2>
 
 <form id="tempForm">
-  <label for="temp">Ingrese una temperatura en Celsius:</label><br>
+  <label for="temp">Ingrese una temperatura:</label><br>
   <input type="number" id="temp" name="temp" required><br>
+  <label for="scale">Seleccione la escala:</label><br>
+  <select id="scale" name="scale">
+    <option value="C">Celsius</option>
+    <option value="F">Fahrenheit</option>
+    <option value="K">Kelvin</option>
+    <option value="R">Roemer</option>
+  </select><br>
   <input type="submit" value="Convertir">
 </form>
 
@@ -15,12 +22,37 @@
 <script>
 document.getElementById('tempForm').addEventListener('submit', function(event) {
   event.preventDefault();
-  var tempC = document.getElementById('temp').value;
+  var temp = document.getElementById('temp').value;
+  var scale = document.getElementById('scale').value;
   var result = document.getElementById('result');
-  var tempF = tempC * 9/5 + 32;
-  var tempK = parseFloat(tempC) + 273.15;
-  var tempR = tempC * 21/40 + 7.5;
-  result.textContent = 'Farenheit: ' + tempF + '°F, Kelvin: ' + tempK + 'K, Roemer: ' + tempR + '°R';
+  var tempC, tempF, tempK, tempR;
+  switch (scale) {
+    case 'C':
+      tempC = temp;
+      tempF = tempC * 9/5 + 32;
+      tempK = parseFloat(tempC) + 273.15;
+      tempR = tempC * 21/40 + 7.5;
+      break;
+    case 'F':
+      tempF = temp;
+      tempC = (tempF - 32) * 5/9;
+      tempK = (tempF - 32) * 5/9 + 273.15;
+      tempR = (tempF - 32) * 21/40 + 7.5;
+      break;
+    case 'K':
+      tempK = temp;
+      tempC = tempK - 273.15;
+      tempF = (tempK - 273.15) * 9/5 + 32;
+      tempR = (tempK - 273.15) * 21/40 + 7.5;
+      break;
+    case 'R':
+      tempR = temp;
+      tempC = (tempR - 7.5) * 40/21;
+      tempF = (tempR - 7.5) * 40/21 * 9/5 + 32;
+      tempK = (tempR - 7.5) * 40/21 + 273.15;
+      break;
+  }
+  result.textContent = 'Celsius: ' + tempC + '°C, Fahrenheit: ' + tempF + '°F, Kelvin: ' + tempK + 'K, Roemer: ' + tempR + '°R';
 });
 </script>
 

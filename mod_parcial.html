@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Registro de Taxis</h2>
+
+<form id="taxiForm">
+  <label for="license">Dominio:</label><br>
+  <input type="text" id="license" name="license" pattern="[A-Za-z]{2,3}\d{3}[A-Za-z]{0,2}" required><br>
+  <label for="revenue">Recaudación de Mayo ($):</label><br>
+  <input type="number" id="revenue" name="revenue" required><br>
+  <label for="trips">Cantidad de Viajes en Mayo:</label><br>
+  <input type="number" id="trips" name="trips" required><br>
+  <label for="color">Color Original:</label><br>
+  <select id="color" name="color">
+    <option value="rojo">Rojo</option>
+    <option value="azul">Azul</option>
+    <option value="gris">Gris</option>
+    <option value="blanco">Blanco</option>
+    <option value="otros">Otros</option>
+  </select><br>
+  <input type="submit" value="Registrar Taxi">
+</form>
+
+<button onclick="calculateStats()">Calcular Estadísticas</button>
+
+<p id="stats"></p>
+
+<script>
+var taxis = [];
+
+document.getElementById('taxiForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var license = document.getElementById('license').value;
+  var revenue = document.getElementById('revenue').value;
+  var trips = document.getElementById('trips').value;
+  var color = document.getElementById('color').value;
+  taxis.push({license: license, revenue: revenue, trips: trips, color: color});
+  event.target.reset();
+});
+
+function calculateStats() {
+  var totalRevenue = 0;
+  var totalTrips = 0;
+  var evenLicenseCount = 0;
+  var whiteCarTrips = 0;
+  for (var i = 0; i < taxis.length; i++) {
+    totalRevenue += parseFloat(taxis[i].revenue);
+    totalTrips += parseInt(taxis[i].trips);
+    if (parseInt(taxis[i].license.slice(-1)) % 2 === 0) {
+      evenLicenseCount++;
+    }
+    if (taxis[i].color === 'blanco') {
+      whiteCarTrips += parseInt(taxis[i].trips);
+    }
+  }
+  var averageTrips = totalTrips / taxis.length;
+  document.getElementById('stats').textContent = 'Recaudación Total: $' + totalRevenue + ', Promedio de Viajes: ' + averageTrips + ', Autos con Dominio Par: ' + evenLicenseCount + ', Viajes de Autos Blancos: ' + whiteCarTrips;
+}
+</script>
+
+</body>
+</html>

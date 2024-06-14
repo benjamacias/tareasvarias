@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estadísticas de Personas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="generate">Generar Datos</button>
+    <div id="results"></div>
+
+    <script>
+        function generatePerson() {
+            return {
+                age: Math.floor(Math.random() * 101) + 20,
+                favoriteNumber: Math.floor(Math.random() * 101),
+                booksRead: Math.floor(Math.random() * 50) + 1
+            };
+        }
+
+        function generateArray() {
+            const array = [];
+            for (let i = 0; i < 732; i++) {
+                array.push(generatePerson());
+            }
+            return array;
+        }
+
+        function calculateStats(array) {
+            const ageCounts = {};
+            let evenCount = 0;
+            let oddCount = 0;
+            const booksByDecade = {};
+
+            array.forEach(person => {
+                ageCounts[person.age] = (ageCounts[person.age] || 0) + 1;
+                if (person.favoriteNumber % 2 === 0) {
+                    evenCount++;
+                } else {
+                    oddCount++;
+                }
+                const decade = Math.floor(person.age / 10) * 10;
+                booksByDecade[decade] = (booksByDecade[decade] || 0) + person.booksRead;
+            });
+
+            return {
+                ageCounts,
+                evenPercentage: evenCount / array.length * 100,
+                oddPercentage: oddCount / array.length * 100,
+                booksByDecade
+            };
+        }
+
+        function displayStats(stats) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h2>Estadísticas</h2>
+                <p>Porcentaje de números preferidos pares: ${stats.evenPercentage.toFixed(2)}%</p>
+                <p>Porcentaje de números preferidos impares: ${stats.oddPercentage.toFixed(2)}%</p>
+                <h3>Libros leídos por década:</h3>
+                ${Object.entries(stats.booksByDecade).map(([decade, count]) => `<p>${decade}s: ${count}</p>`).join('')}
+            `;
+        }
+
+        document.getElementById('generate').addEventListener('click', () => {
+            const array = generateArray();
+            const stats = calculateStats(array);
+            displayStats(stats);
+        });
+    </script>
+</body>
+</html>
