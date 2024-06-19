@@ -48,9 +48,10 @@
                 const decade = Math.floor(person.age / 10) * 10;
                 booksByDecade[decade] = (booksByDecade[decade] || 0) + person.booksRead;
             });
-
+            console.log(ageCounts);
+            console.log("--------------------");
+            console.log(booksByDecade);
             return {
-                ageCounts,
                 evenPercentage: evenCount / array.length * 100,
                 oddPercentage: oddCount / array.length * 100,
                 booksByDecade

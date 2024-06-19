@@ -39,7 +39,6 @@ document.getElementById('taxiForm').addEventListener('submit', function(event) {
   var isRegistered = taxis.some(function(taxi) {
     return taxi.license === license;
   });
-
   if (!isRegistered) {
     // Si el taxi no está registrado, agregarlo a la lista
     taxis.push({license: license, revenue: revenue, trips: trips, color: color});
